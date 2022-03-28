@@ -4,6 +4,7 @@
 [productos snmb](https://hackmd.io/p5k4N44eRQqGbz2O6mmcbQ)
 
 ### Conteos por especie
+---
 
 - Datos geográficos
     - latitud
@@ -22,6 +23,7 @@
     - Fecha/hora término
 
 ### Videos de espectrograma
+---
 
 - Ruta al archivo
 - Formato (p.ej. mp4)
