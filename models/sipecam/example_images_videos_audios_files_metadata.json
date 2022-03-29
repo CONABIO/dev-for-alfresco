@@ -1,4 +1,18 @@
-"MetadataFiles": {
+{
+    "DaysBetweenFirstAndLastDate": 32,
+    "MetadataDevice": {
+        "Make": "RECONYX",
+        "Model": "HF2 PRO COVERT",
+        "SerialNumber": "HLPXGM09048271",
+        "NomenclatureNode": "3_92_0_1336",
+        "CumulusName": "92",
+        "DateDeployment": "2021-12-18",
+        "EcosystemsName": "Selvas humedas",
+        "Latitude": 16.198004,
+        "Longitude": -90.8154918,
+        "NodeCategoryIntegrity": "Degradado"
+}, 
+ "MetadataFiles": {
       "/shared_volume/testing_simex/sacmod/SIPECAM/Entregas_2021/octubre_2021/SIPECAM/Playon_1338/Camaras/1338_1/100RECNX/RCNX0074.JPG": {
             "Make": "RECONYX",
             "Model": "HF2 PRO COVERT",
@@ -73,7 +87,24 @@
             "GPSLongitudeRef": "West",
             "GPSLatitude": 16.1583,
             "GPSLongitude": -90.9048
-        },
+        }
+ }
+}
+      
+{
+    "DaysBetweenFirstAndLastDate": 32,
+    "MetadataDevice": {
+        "Artist": "AudioMoth 2401010753E1BE19",
+        "SerialNumber": "2401010753E1BE19",
+        "NomenclatureNode": "3_92_0_1339",
+        "CumulusName": "92",
+        "DateDeployment": "2021-07-29",
+        "EcosystemsName": "Selvas humedas",
+        "Latitude": 16.15556,
+        "Longitude": -90.80417,
+        "NodeCategoryIntegrity": "Degradado"
+    },
+    "MetadataFiles": {
       "/shared_volume/testing_simex/sacmod/SIPECAM/Entregas_2021/octubre_2021/SIPECAM/Playon_1338/Audio/1338_1/Ultrasonico/20210728_184000.WAV": {
             "Battery": "4.8V",
             "Datetime": "18:40:00 28/07/2021 (UTC-0600)",
@@ -93,4 +124,5 @@
             "longitude": -90.9048
         }
     }
+}
 
