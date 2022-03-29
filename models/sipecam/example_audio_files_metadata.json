@@ -1,0 +1,34 @@
+{
+    "DaysBetweenFirstAndLastDate": 32,
+    "MetadataDevice": {
+        "Artist": "AudioMoth 2401010753E1BE19",
+        "SerialNumber": "2401010753E1BE19",
+        "NomenclatureNode": "3_92_0_1339",
+        "CumulusName": "92",
+        "DateDeployment": "2021-07-29",
+        "EcosystemsName": "Selvas humedas",
+        "Latitude": 16.15556,
+        "Longitude": -90.80417,
+        "NodeCategoryIntegrity": "Degradado"
+    },
+    "MetadataFiles": {
+      "/shared_volume/testing_simex/sacmod/SIPECAM/Entregas_2021/octubre_2021/SIPECAM/Playon_1338/Audio/1338_1/Ultrasonico/20210728_184000.WAV": {
+            "Battery": "4.8V",
+            "Datetime": "18:40:00 28/07/2021 (UTC-0600)",
+            "Gain": "medium",
+            "Timezone": "UTC",
+            "BitRate": "6.1 Mbit/sec",
+            "SerialNumber": "2423C2045F256D74",
+            "FileSize": "22 MiB",
+            "Encoding": "Microsoft PCM",
+            "NumChannels": 1,
+            "SampleRate": 384000,
+            "AvgBytesPerSec": 768000,
+            "BitsPerSample": 16,
+            "Comment": "Recorded at 18:40:00 28/07/2021 (UTC-6) by AudioMoth 2423C2045F256D74 at medium gain setting while battery state was 4.8V and temperature was 23.4C.",
+            "Duration": "0:00:30",
+            "latitude": 16.1583,
+            "longitude": -90.9048
+        }
+    }
+}
