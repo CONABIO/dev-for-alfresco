@@ -1,34 +1,38 @@
 {
-    "DaysBetweenFirstAndLastDate": 32,
+    "DaysBetweenFirstAndLastDate": 30,
     "MetadataDevice": {
-        "Artist": "AudioMoth 2401010753E1BE19",
-        "SerialNumber": "2401010753E1BE19",
+        "Artist": "AudioMoth 248D9B045EC9E6B1",
+        "SerialNumber": "248D9B045EC9E6B1",
         "NomenclatureNode": "3_92_0_1339",
         "CumulusName": "92",
         "DateDeployment": "2021-07-29",
         "EcosystemsName": "Selvas humedas",
-        "Latitude": 16.15556,
-        "Longitude": -90.80417,
-        "NodeCategoryIntegrity": "Degradado"
+        "Latitude": 16.1517,
+        "Longitude": -90.81243,
+        "NodeCategoryIntegrity": "Degradado",
+        "CentroidCumulusLatitude": 16.17538,
+        "CentroidCumulusLongitude": -90.87685
     },
     "MetadataFiles": {
-        "/LUSTRE/sacmod/SIPECAM/data/92/3_92_0_1339/2401010753E1BE19/2021-07-29/audios/Audible/e57d6ec50409499f7cd1bef3add0e815.WAV": {
-            "Battery": "4.3V",
-            "Datetime": "10:20:00 09/08/2021 (UTC-0600)",
+        "/shared_volume/testing_simex/sipecam_simex_std_dir/92/3_92_0_1339/248D9B045EC9E6B1/2021-07-29/audios/Ultrasonico/41c38ee40d87bedcab44487b52ceb8b6.WAV": {
+            "Battery": "4.4V",
+            "Datetime": "05:20:00 28/08/2021 (UTC-0600)",
             "Gain": "medium",
             "Timezone": "UTC",
-            "BitRate": "768.0 Kbit/sec",
-            "SerialNumber": "2401010753E1BE19",
-            "FileSize": "5.5 MiB",
+            "BitRate": "6.1 Mbit/sec",
+            "SerialNumber": "248D9B045EC9E6B1",
+            "FileSize": "22 MiB",
             "Encoding": "Microsoft PCM",
             "NumChannels": 1,
-            "SampleRate": 48000,
-            "AvgBytesPerSec": 96000,
+            "SampleRate": 384000,
+            "AvgBytesPerSec": 768000,
             "BitsPerSample": 16,
-            "Comment": "Recorded at 10:20:00 09/08/2021 (UTC-6) by AudioMoth 2401010753E1BE19 at medium gain setting while battery state was 4.3V and temperature was 26.0C.",
-            "Duration": "0:01:00",
-            "Latitude": 16.15556,
-            "Longitude": -90.80417
+            "Comment": "Recorded at 05:20:00 28/08/2021 (UTC-6) by AudioMoth 248D9B045EC9E6B1 at medium gain setting while battery state was 4.4V and temperature was 22.6C.",
+            "Duration": "0:00:30",
+            "Latitude": 16.1517,
+            "Longitude": -90.81243,
+            "CentroidCumulusLatitude": 16.17538,
+            "CentroidCumulusLongitude": -90.87685
         }
     }
 }
