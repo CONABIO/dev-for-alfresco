@@ -1,36 +1,36 @@
 {
-    "DaysBetweenFirstAndLastDate": 30,
+    "DaysBetweenFirstAndLastDate": 29,
     "MetadataDevice": {
-        "Artist": "AudioMoth 248D9B045EC9E6B1",
-        "SerialNumber": "248D9B045EC9E6B1",
-        "NomenclatureNode": "3_92_0_1339",
+        "Artist": "AudioMoth 2423C2045F256D74",
+        "SerialNumber": "2423C2045F256D74",
+        "NomenclatureNode": "3_92_1_1338",
         "CumulusName": "92",
-        "DateDeployment": "2021-07-29",
-        "EcosystemsName": "Selvas humedas",
-        "Latitude": 16.1517,
-        "Longitude": -90.81243,
-        "NodeCategoryIntegrity": "Degradado",
         "CentroidCumulusLatitude": 16.17538,
-        "CentroidCumulusLongitude": -90.87685
+        "CentroidCumulusLongitude": -90.87685,
+        "DateDeployment": "2021-07-28",
+        "EcosystemsName": "Selvas humedas",
+        "Latitude": 16.15832,
+        "Longitude": -90.90487,
+        "NodeCategoryIntegrity": "Integro"
     },
     "MetadataFiles": {
-        "/shared_volume/testing_simex/sipecam_simex_std_dir/92/3_92_0_1339/248D9B045EC9E6B1/2021-07-29/audios/Ultrasonico/41c38ee40d87bedcab44487b52ceb8b6.WAV": {
-            "Battery": "4.4V",
-            "Datetime": "05:20:00 28/08/2021 (UTC-0600)",
+        "/shared_volume/testing_simex/sipecam_simex_std_dir/92/3_92_1_1338/2423C2045F256D74/2021-07-28/audios/Ultrasonico/6347b1d99aa5099ed4e6d811fda5052b.WAV": {
+            "Battery": "4.8V",
+            "Datetime": "18:40:00 28/07/2021 (UTC-0600)",
             "Gain": "medium",
             "Timezone": "UTC",
             "BitRate": "6.1 Mbit/sec",
-            "SerialNumber": "248D9B045EC9E6B1",
+            "SerialNumber": "2423C2045F256D74",
             "FileSize": "22 MiB",
             "Encoding": "Microsoft PCM",
             "NumChannels": 1,
             "SampleRate": 384000,
             "AvgBytesPerSec": 768000,
             "BitsPerSample": 16,
-            "Comment": "Recorded at 05:20:00 28/08/2021 (UTC-6) by AudioMoth 248D9B045EC9E6B1 at medium gain setting while battery state was 4.4V and temperature was 22.6C.",
+            "Comment": "Recorded at 18:40:00 28/07/2021 (UTC-6) by AudioMoth 2423C2045F256D74 at medium gain setting while battery state was 4.8V and temperature was 23.4C.",
             "Duration": "0:00:30",
-            "Latitude": 16.1517,
-            "Longitude": -90.81243,
+            "Latitude": 16.15832,
+            "Longitude": -90.90487,
             "CentroidCumulusLatitude": 16.17538,
             "CentroidCumulusLongitude": -90.87685
         }
