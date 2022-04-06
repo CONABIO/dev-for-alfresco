@@ -5,3 +5,4 @@ logs/
 upload_log*.txt
 92/
 data.json
+*.zip

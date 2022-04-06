@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+import os
+import json
 from utils import create_sites, search, login
 from helpers import *
 
@@ -140,21 +142,54 @@ session = login()
 
 if "Authorization" in session.headers.keys():
     """
-        If auth is present in session headers, then
-        the login was succesful. So you can try any
-        of the function above inside this if.
+    If auth is present in session headers, then
+    the login was succesful. So you can try any
+    of the function above inside this if.
     """
     res = search(
-            session,
-            {
-                "query": {
-                    "query": '+TYPE:"sipecamImage:ImageSipecam" AND (sipecam:CumulusName:"92")',
-                    "language": "afts",
-                },
-                "paging": {
-                    "maxItems": "1",
-                }
+        session,
+        {
+            "query": {
+                "query": '+TYPE:"sipecamImage:ImageSipecam" AND (sipecam:CumulusName:"92")',
+                "language": "afts",
             },
+            "paging": {
+                "maxItems": "10",
+            },
+        },
+    )
+
+    ids = []
+    for i in res["list"]["entries"]:
+        ids.append(i["entry"]["id"])
+
+    d = session.post(
+        os.getenv("ALFRESCO_URL") + BASE_ENDPOINT + "/downloads/",
+        data=json.dumps({"nodeIds": ids}),
+    )
+
+    download_id = d.json()["entry"]["id"]
+
+    d_status = session.get(
+        os.getenv("ALFRESCO_URL") + BASE_ENDPOINT + "/downloads/" + download_id
+    )
+
+    download_status = d_status.json()["entry"]["status"]
+
+    while download_status != "DONE":
+        d_status = session.get(
+            os.getenv("ALFRESCO_URL") + BASE_ENDPOINT + "/downloads/" + download_id
+        )
+        
+        download_status = d_status.json()["entry"]["status"]
+    
+    zip_file = session.get(
+            os.getenv("ALFRESCO_URL") + BASE_ENDPOINT + "/nodes/" + download_id + "/content"
         )
 
-    print(res)
+    with open("data.zip",'wb') as output_file:
+        output_file.write(zip_file.content)
+    print('Downloading Completed')
+
+
+    # print(ids)
