@@ -78,19 +78,17 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                     + BASE_ENDPOINT
                     + "/nodes/"
                     + root_folder_id
-                    + "/children?relativePath="+root_dir_path+"&include=aspectNames&skipCount=0&maxItems=100"
+                    + "/children?relativePath="+root_dir_path+"&include=aspectNames&skipCount=0&maxItems=1"
                 )
 
                 if response.status_code == 200:
 
                     print("Changing type of files in " + root_dir_path + "\n\n")
 
-                    has_more_items = response.json()["list"]["pagination"]["hasMoreItems"]
+                    has_more_items = True
                     skip_count = 0
 
                     while has_more_items:
-
-                        skip_count = skip_count + 100
 
                         response = session.get(
                             os.getenv("ALFRESCO_URL")
@@ -170,6 +168,8 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                     print("\n\n")
                                 updated.append(update.json())
 
+                                skip_count = skip_count + 100
+                                
                                 print("Updated " + f["entry"]["name"])
 
         return updated

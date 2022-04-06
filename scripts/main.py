@@ -144,6 +144,17 @@ if "Authorization" in session.headers.keys():
         the login was succesful. So you can try any
         of the function above inside this if.
     """
-    res = create_sites(session, "cumulo-95", "Cumulo 95", "PUBLIC")
+    res = search(
+            session,
+            {
+                "query": {
+                    "query": '+TYPE:"sipecamImage:ImageSipecam" AND (sipecam:CumulusName:"92")',
+                    "language": "afts",
+                },
+                "paging": {
+                    "maxItems": "1",
+                }
+            },
+        )
 
     print(res)
