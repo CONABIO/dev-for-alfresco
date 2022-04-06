@@ -1,0 +1,126 @@
+{
+    "schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://snmb.conabio.gob.mx/audio/productos/conteos.json",
+    "title": "Conteos por especie",
+    "description": "Este esquema describe los campos asociados al producto de conteos de especies utilizando datos de audio del SNMB",
+    "required": [
+        "identifier",
+        "datos_geograficos",
+        "referencias",
+        "especie",
+        "temporal",
+        "conteo"
+    ],
+    "identifier": {
+        "$id": "#/properties/id",
+        "type": "string",
+        "title": "Identificador",
+        "description": "Identificador único para el archivo",
+        "examples": [
+            "89888"
+        ]
+    },
+    "datos_geograficos": {
+        "$id": "#/properties/datos_geograficos",
+        "type": "object",
+        "properties": {
+            "latitud": {
+                "$id": "#/properties/datos_geograficos/latitud",
+                "type": "number",
+                "description": "Latitud"
+            },
+            "longitud": {
+                "$id": "#/properties/datos_geograficos/longitud",
+                "type": "number",
+                "description": "Longitud"
+            },
+            "epsg": {
+                "$id": "#/properties/datos_geograficos/epsg",
+                "type": "number",
+                "description": "Código EPSG (European Petroleum Survey Group)"
+            }
+        },
+        "required": [
+            "latitud",
+            "longitud",
+            "epsg"
+        ]
+    },
+    "llaves": {
+        "$id": "#/properties/llaves",
+        "type": "object",
+        "properties": {
+            "conglomerado_muestra": {
+                "$id": "#/properties/llaves/conglomerado_muestra",
+                "type": "string",
+                "description": "Identificador de conglomerado al que pertenece la grabación"
+            },
+            "sitio_muestra": {
+                "$id": "#/properties/llaves/sitio_muestra",
+                "type": "string",
+                "description": "Identificador de sitio al que pertenece la grabación"
+            },
+            "grabadora": {
+                "$id": "#/properties/llaves/grabadora",
+                "type": "string",
+                "description": "Identificador de la grabadora que realizó la grabación"
+            }
+        },
+        "required": [
+            "conglomerado_muestra",
+            "sitio_muestra",
+            "grabadora"
+        ]
+    },
+    "especie": {
+        "$id": "#/properties/especie",
+        "type": "object",
+        "properties": {
+            "binomio": {
+                "$id": "#/properties/especie/binomio",
+                "type": "string",
+                "description": ""
+            },
+            "autoridad": {
+                "$id": "#/properties/especie/autoridad",
+                "type": "string",
+                "description": ""
+            }
+        },
+        "required": [
+            "binomio",
+            "autoridad"
+        ]
+    },
+    "rango_temporal": {
+        "$id": "#/properties/rango_temporal",
+        "type": "object",
+        "properties": {
+            "fecha_inicio": {
+                "$id": "#/properties/rango_temporal/fecha_inicio",
+                "type": "string",
+                "description": "",
+                "examples": [
+                    "2018-12-10T13:49:51.141Z"
+                ]
+            },
+            "fecha_termino": {
+                "$id": "#/properties/rango_temporal/fecha_termino",
+                "type": "string",
+                "description": "",
+                "examples": [
+                    "2018-12-10T13:49:51.141Z"
+                ]
+            }
+        },
+        "required": [
+            "fecha_inicio",
+            "fecha_termino"
+        ]
+    },
+    "conteo": {
+        "$id": "#/properties/conteo",
+        "description": "Conteo del número de días en los que fue observada la especie.",
+        "type": "number"
+    }
+}

@@ -1,0 +1,159 @@
+{
+    "schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://snmb.conabio.gob.mx/audio/productos/videos.json",
+    "title": "Videos de espectrogramas con detecciones relevantes",
+    "description": "Este esquema describe los campos asociados al producto de videos de espectrogramas utilizando datos de audio del SNMB",
+    "required": [
+        "identifier",
+        "ruta_archivo",
+        "formato",
+        "datos_geograficos",
+        "referencias",
+        "temporal",
+        "etiqueta",
+        "especie"
+    ],
+    "identifier": {
+        "$id": "#/properties/id",
+        "type": "string",
+        "title": "Identificador",
+        "description": "Identificador único para el archivo",
+        "examples": [
+            "89888"
+        ]
+    },
+    "ruta_archivo": {
+        "$id": "#/properties/ruta_archivo",
+        "type": "string",
+        "title": "Ruta del archivo",
+        "description": "Ruta del directorio que contine el archivo"
+    },
+    "formato": {
+        "$id": "#/properties/formato",
+        "type": "string",
+        "title": "Formato",
+        "description": "Formato del video"
+    },
+    "datos_geograficos": {
+        "$id": "#/properties/datos_geograficos",
+        "type": "object",
+        "properties": {
+            "latitud": {
+                "$id": "#/properties/datos_geograficos/latitud",
+                "type": "number",
+                "description": "Latitud"
+            },
+            "longitud": {
+                "$id": "#/properties/datos_geograficos/longitud",
+                "type": "number",
+                "description": "Longitud"
+            },
+            "epsg": {
+                "$id": "#/properties/datos_geograficos/epsg",
+                "type": "number",
+                "description": "Código EPSG (European Petroleum Survey Group)"
+            }
+        },
+        "required": [
+            "latitud",
+            "longitud",
+            "epsg"
+        ]
+    },
+    "llaves": {
+        "$id": "#/properties/llaves",
+        "type": "object",
+        "properties": {
+            "conglomerado_muestra": {
+                "$id": "#/properties/llaves/conglomerado_muestra",
+                "type": "string",
+                "description": "Identificador de conglomerado al que pertenece la grabación"
+            },
+            "sitio_muestra": {
+                "$id": "#/properties/llaves/sitio_muestra",
+                "type": "string",
+                "description": "Identificador de sitio al que pertenece la grabación"
+            },
+            "grabadora": {
+                "$id": "#/properties/llaves/grabadora",
+                "type": "string",
+                "description": "Identificador de la grabadora que realizó la grabación"
+            }
+        },
+        "required": [
+            "conglomerado_muestra",
+            "sitio_muestra",
+            "grabadora"
+        ]
+    },
+    "datos_temporales": {
+        "$id": "#/properties/datos_temporales",
+        "type": "object",
+        "properties": {
+            "inicio": {
+                "$id": "#/properties/datos_temporales/inicio",
+                "type": "string",
+                "description": "Inicio de la grabación",
+                "examples": [
+                    "2018-12-10T13:49:51.141Z"
+                ]
+            },
+            "termino": {
+                "$id": "#/properties/datos_temporales/termino",
+                "type": "string",
+                "description": "Término de la grabación",
+                "examples": [
+                    "2018-12-10T13:49:51.141Z"
+                ]
+            }
+        },
+        "required": [
+            "inicio",
+            "termino"
+        ]
+    },
+    "etiqueta": {
+        "$id": "#/properties/etiqueta",
+        "type": "object",
+        "properties": {
+            "tipo": {
+                "$id": "#/properties/etiqueta/tipo",
+                "type": "string",
+                "description": "Tipo de etiqueta. Por ejemplo: taxonómica, comportamiento, evento antropofónico, etc",
+                "examples": [
+                    "taxonómica"
+                ]
+            },
+            "categoria": {
+                "$id": "#/properties/etiqueta/categoria",
+                "type": "string",
+                "description": "Categoría dentro del tipo de etiqueta que ocupa",
+                "examples": [
+                    "especie"
+                ]
+            },
+            "valor": {
+                "$id": "#/properties/etiqueta/valor",
+                "type": "string",
+                "description": "El valor de la etiqueta según el tipo y categoría",
+                "examples": [
+                    "Gulo gulo"
+                ]
+            },
+            "referencia": {
+                "$id": "#/properties/etiqueta/referencia",
+                "type": "string",
+                "description": "Referencia de la metodología de etiquetado utilizada",
+                "examples": [
+                    "Clasificación de comportamientos según author_1, 2020, url"
+                ]
+            }
+        },
+        "required": [
+            "tipo",
+            "categoria",
+            "valor",
+            "referencia"
+        ]
+    }
+}
