@@ -195,7 +195,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             prop_dict["sipecam:NomenclatureNode"] = data_json["MetadataDevice"]["NomenclatureNode"]
 
                             date_deployment_array = data_json["MetadataDevice"]["DateDeployment"].split("-")
-                            date_deployment = date_deployment_array[2] + "-" + date_deployment_array[1] + date_deployment_array[0]
+                            date_deployment = date_deployment_array[2] + "-" + date_deployment_array[1] + "-" + date_deployment_array[0]
                             prop_dict["sipecam:DateDeployment"] = date_deployment
 
                             if found:
