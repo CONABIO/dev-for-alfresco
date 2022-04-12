@@ -193,10 +193,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             prop_dict["sipecam:EcosystemsName"] = data_json["MetadataDevice"]["EcosystemsName"]
                             prop_dict["sipecam:NodeCategoryIntegrity"] = data_json["MetadataDevice"]["NodeCategoryIntegrity"]
                             prop_dict["sipecam:NomenclatureNode"] = data_json["MetadataDevice"]["NomenclatureNode"]
-
-                            date_deployment_array = data_json["MetadataDevice"]["DateDeployment"].split("-")
-                            date_deployment = date_deployment_array[2] + "/" + date_deployment_array[1] + "/" + date_deployment_array[0]
-                            prop_dict["sipecam:DateDeployment"] = date_deployment
+                            prop_dict["sipecam:DateDeployment"] = data_json["MetadataDevice"]["DateDeployment"]
 
                             if found:
                                 file_metadata = data_json["MetadataFiles"][found]
