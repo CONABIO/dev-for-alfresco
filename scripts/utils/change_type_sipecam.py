@@ -73,25 +73,6 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
     try:
         updated = []
         for d in dirs_with_data:
-            
-            # total time since last login or script start
-            total_time = round((time.time() - starttime), 2)
-
-            if total_time > 2400:
-                """
-                if total time is bigger than 2400
-                or 40 minutes relogin to avoid ticket
-                expiration
-                """
-                time.sleep(5)
-
-                print("Re-logging in to alfresco...")
-
-                session = login.login()
-                # restart time
-                starttime = time.time()
-                time.sleep(5)
-                print("Login sucessful, continuing upload\n")
 
             # filter jsons for current path
             get_json_files_for_dir = [j for j in files_in_dir if d in j]
@@ -151,6 +132,25 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                 # change type, add aspects to file for all files in location
                 while has_more_items:
 
+                    # total time since last login or script start
+                    total_time = round((time.time() - starttime), 2)
+
+                    if total_time > 2400:
+                        """
+                        if total time is bigger than 2400
+                        or 40 minutes relogin to avoid ticket
+                        expiration
+                        """
+                        time.sleep(5)
+
+                        print("Re-logging in to alfresco...")
+
+                        session = login.login()
+                        # restart time
+                        starttime = time.time()
+                        time.sleep(5)
+                        print("Login sucessful, continuing update\n")
+
                     response = session.get(
                         os.getenv("ALFRESCO_URL")
                         + BASE_ENDPOINT
@@ -160,6 +160,9 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                     )
 
                     has_more_items = response.json()["list"]["pagination"]["hasMoreItems"]
+                    
+                    # skip to next batch
+                    skip_count = skip_count + 100
                     data_file = open(latest_json_file)
 
                     data_json = json.load(data_file)
@@ -256,9 +259,6 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                 print(update.json())
                                 print("\n\n")
                             updated.append(update.json())
-
-                            # skip to next batch
-                            skip_count = skip_count + 100
 
                             print("Updated " + f["entry"]["name"])
 
