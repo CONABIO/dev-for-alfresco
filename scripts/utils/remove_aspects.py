@@ -19,17 +19,6 @@ def remove_aspects(session, aspect_to_remove):
 
     """
     try:
-        response = search(
-            session,
-            {
-                "query": {
-                    "query": '+ASPECT: "' + aspect_to_remove + '" AND -TYPE: "dummyType"'
-                },
-                "include": ["aspectNames"],
-                "fields": ["id"],
-                "paging": {"maxItems": "100"},
-            },
-        )
 
         has_more_items = True
 
@@ -38,6 +27,20 @@ def remove_aspects(session, aspect_to_remove):
         files_changed = []
 
         while has_more_items:
+
+            response = search(
+                session,
+                {
+                    "query": {
+                        "query": '+ASPECT: "' + aspect_to_remove + '" AND -TYPE: "dummyType"'
+                    },
+                    "include": ["aspectNames"],
+                    "fields": ["id"],
+                    "paging": {"skipCount": count, "maxItems": "100"},
+                },
+            )
+            
+            has_more_items = response["list"]["pagination"]["hasMoreItems"]
 
             count += response["list"]["pagination"]["count"]
 
@@ -62,19 +65,6 @@ def remove_aspects(session, aspect_to_remove):
                     files_changed.append(f["entry"]["id"])
                     print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
             
-            response = search(
-                session,
-                {
-                    "query": {
-                        "query": '+ASPECT: "' + aspect_to_remove + '" AND -TYPE: "dummyType"'
-                    },
-                    "include": ["aspectNames"],
-                    "fields": ["id"],
-                    "paging": {"skipCount": count, "maxItems": "100"},
-                },
-            )
-            
-            has_more_items = response["list"]["pagination"]["hasMoreItems"]
 
             print(has_more_items,count)
 
