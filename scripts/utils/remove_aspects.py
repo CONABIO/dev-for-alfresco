@@ -39,8 +39,6 @@ def remove_aspects(session, aspect_to_remove):
 
         while has_more_items:
 
-            has_more_items = response["list"]["pagination"]["hasMoreItems"]
-
             count += response["list"]["pagination"]["count"]
 
             for f in response["list"]["entries"]:
@@ -52,7 +50,6 @@ def remove_aspects(session, aspect_to_remove):
 
                 data = {"aspectNames": current_aspects}
 
-                files_changed.append(f["entry"]["id"])
                 update = session.put(
                     os.getenv("ALFRESCO_URL")
                     + BASE_ENDPOINT
@@ -61,7 +58,9 @@ def remove_aspects(session, aspect_to_remove):
                     data=json.dumps(data),
                 )
 
-                print(update.json())
+                if update.status_code == 200:
+                    files_changed.append(f["entry"]["id"])
+                    print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
             
             response = search(
                 session,
@@ -74,6 +73,11 @@ def remove_aspects(session, aspect_to_remove):
                     "paging": {"skipCount": count, "maxItems": "100"},
                 },
             )
+            
+            has_more_items = response["list"]["pagination"]["hasMoreItems"]
+
+            print(has_more_items,count)
+
         
         print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
 
