@@ -191,7 +191,10 @@ if "Authorization" in session.headers.keys():
     #     output_file.write(zip_file.content)
     # print('Downloading Completed')
 
-    remove_aspects(session,"sipecam:fileDetails")
+    # remove_aspects(session,"sipecam:fileDetails")
 
+    res = change_type_of_file(session,"sipecam","")
+
+    print("updated %d files" % len(res))
 
     # print(ids)

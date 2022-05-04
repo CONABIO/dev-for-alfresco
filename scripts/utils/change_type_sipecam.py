@@ -190,7 +190,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                 new_type = "sipecam:video"
                             elif any(filetype in f["entry"]["name"] for filetype in AUDIO_PATTERNS):
                                 new_type = "sipecam:audio"
-                                prop_dict["sipecam:timeexp"] = 1.0
+                                prop_dict["sipecam:Timeexp"] = 1.0
 
                             # fill data that is not included in file metadata, but corresponds to device metadata
                             prop_dict["sipecam:CumulusName"] = data_json["MetadataDevice"]["CumulusName"]
@@ -219,7 +219,10 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                         # convert filesize to bytes
                                         prop_dict[new_type.split(":")[0] + ":" + key] = file_size
                                     elif "Duration" in key:
-                                        duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                        if isinstance(file_metadata[key],str):
+                                            duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                        else:
+                                            duration = file_metadata[key]
                                         prop_dict[new_type.split(":")[0] + ":" + key] = duration
                                     else:
                                         if "datetime" in key.lower() and "original" not in key.lower():
