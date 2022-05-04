@@ -190,6 +190,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                 new_type = "sipecam:video"
                             elif any(filetype in f["entry"]["name"] for filetype in AUDIO_PATTERNS):
                                 new_type = "sipecam:audio"
+                                prop_dict["sipecam:timeexp"] = 1.0
 
                             # fill data that is not included in file metadata, but corresponds to device metadata
                             prop_dict["sipecam:CumulusName"] = data_json["MetadataDevice"]["CumulusName"]
@@ -206,6 +207,20 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                             prop_dict[new_type.split(":")[0] + ":" + key.replace("GPS",'')] = file_metadata[key]
                                         else:
                                             prop_dict[new_type.split(":")[0] + ":" + key] = file_metadata[key]
+                                    elif "FileSize" in key:
+                                        if "GiB" in file_metadata[key]:
+                                            file_size = int(file_metadata[key].replace(" GiB",'')) * 1073741824
+                                        if "MiB" in file_metadata[key]:
+                                            file_size = int(file_metadata[key].replace(" MiB",'')) * 1048576
+                                        elif "KiB" in file_metadata[key]:
+                                            file_size = int(file_metadata[key].replace(" KiB",'')) * 1024
+                                        elif "B" in file_metadata[key]:
+                                            file_size = int(file_metadata[key].replace(" B",''))
+                                        # convert filesize to bytes
+                                        prop_dict[new_type.split(":")[0] + ":" + key] = file_size
+                                    elif "Duration" in key:
+                                        duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                        prop_dict[new_type.split(":")[0] + ":" + key] = duration
                                     else:
                                         if "datetime" in key.lower() and "original" not in key.lower():
                                             key_name = new_type.split(":")[0] + ":" + key + "Original"

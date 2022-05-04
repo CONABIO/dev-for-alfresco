@@ -9,3 +9,4 @@ from .add_aspects import add_aspects
 from .change_type_sonozotz import change_type_sonozotz
 from .change_type_sipecam import change_type_sipecam
 from .search import search
+from .remove_aspects import remove_aspects
