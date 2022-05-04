@@ -220,7 +220,10 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                         prop_dict[new_type.split(":")[0] + ":" + key] = file_size
                                     elif "Duration" in key:
                                         if isinstance(file_metadata[key],str):
-                                            duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                            if ":" in file_metadata[key]:
+                                                duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                            elif "s" in file_metadata[key]:
+                                                duration = float(file_metadata[key].replace(" s"))
                                         else:
                                             duration = file_metadata[key]
                                         prop_dict[new_type.split(":")[0] + ":" + key] = duration
