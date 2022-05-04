@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from helpers import BASE_ENDPOINT
 from utils import search
 
@@ -65,6 +66,8 @@ def remove_aspects(session, aspect_to_remove):
             
 
             print(has_more_items,response["list"]["pagination"]["count"])
+
+            time.sleep(5)
 
         
         print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
