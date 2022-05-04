@@ -205,28 +205,28 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                     if "date" not in key.lower():
                                         if "GPS" in key:
                                             prop_dict[new_type.split(":")[0] + ":" + key.replace("GPS",'')] = file_metadata[key]
+                                        elif "FileSize" in key:
+                                            if "GiB" in file_metadata[key]:
+                                                file_size = int(file_metadata[key].replace(" GiB",'')) * 1073741824
+                                            elif "MiB" in file_metadata[key]:
+                                                file_size = int(file_metadata[key].replace(" MiB",'')) * 1048576
+                                            elif "KiB" in file_metadata[key]:
+                                                file_size = int(file_metadata[key].replace(" KiB",'')) * 1024
+                                            elif "B" in file_metadata[key]:
+                                                file_size = int(file_metadata[key].replace(" B",''))
+                                            # convert filesize to bytes
+                                            prop_dict[new_type.split(":")[0] + ":" + key] = file_size
+                                        elif "Duration" in key:
+                                            if isinstance(file_metadata[key],str):
+                                                if ":" in file_metadata[key]:
+                                                    duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
+                                                elif "s" in file_metadata[key]:
+                                                    duration = float(file_metadata[key].replace(" s"))
+                                            else:
+                                                duration = file_metadata[key]
+                                            prop_dict[new_type.split(":")[0] + ":" + key] = duration
                                         else:
                                             prop_dict[new_type.split(":")[0] + ":" + key] = file_metadata[key]
-                                    elif "FileSize" in key:
-                                        if "GiB" in file_metadata[key]:
-                                            file_size = int(file_metadata[key].replace(" GiB",'')) * 1073741824
-                                        if "MiB" in file_metadata[key]:
-                                            file_size = int(file_metadata[key].replace(" MiB",'')) * 1048576
-                                        elif "KiB" in file_metadata[key]:
-                                            file_size = int(file_metadata[key].replace(" KiB",'')) * 1024
-                                        elif "B" in file_metadata[key]:
-                                            file_size = int(file_metadata[key].replace(" B",''))
-                                        # convert filesize to bytes
-                                        prop_dict[new_type.split(":")[0] + ":" + key] = file_size
-                                    elif "Duration" in key:
-                                        if isinstance(file_metadata[key],str):
-                                            if ":" in file_metadata[key]:
-                                                duration = (int(file_metadata[key].split(":")[0])*60)*60 + int(file_metadata[key].split(":")[1])*60 + int(file_metadata[key].split(":")[2])
-                                            elif "s" in file_metadata[key]:
-                                                duration = float(file_metadata[key].replace(" s"))
-                                        else:
-                                            duration = file_metadata[key]
-                                        prop_dict[new_type.split(":")[0] + ":" + key] = duration
                                     else:
                                         if "datetime" in key.lower() and "original" not in key.lower():
                                             key_name = new_type.split(":")[0] + ":" + key + "Original"
