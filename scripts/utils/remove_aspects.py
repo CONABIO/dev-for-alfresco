@@ -36,13 +36,11 @@ def remove_aspects(session, aspect_to_remove):
                     },
                     "include": ["aspectNames"],
                     "fields": ["id"],
-                    "paging": {"skipCount": count, "maxItems": "100"},
+                    "paging": {"maxItems": "100"},
                 },
             )
             
             has_more_items = response["list"]["pagination"]["hasMoreItems"]
-
-            count += response["list"]["pagination"]["count"]
 
             for f in response["list"]["entries"]:
 
@@ -66,7 +64,7 @@ def remove_aspects(session, aspect_to_remove):
                     print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
             
 
-            print(has_more_items,count)
+            print(has_more_items,response["list"]["pagination"]["count"])
 
         
         print("Removed %s from %d files satisfactory" % (aspect_to_remove, len(files_changed)) )
