@@ -229,7 +229,10 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                             prop_dict[new_type.split(":")[0] + ":" + key] = file_metadata[key]
                                     else:
                                         if "datetime" in key.lower() and "original" not in key.lower():
-                                            key_name = new_type.split(":")[0] + ":" + key + "Original"
+                                            if "DateTime" != key:
+                                                key_name = new_type.split(":")[0] + ":DateTimeOriginal" 
+                                            else:
+                                                key_name = new_type.split(":")[0] + ":" + key + "Original"
                                         else:
                                             key_name = new_type.split(":")[0] + ":" + key
                                         try:
