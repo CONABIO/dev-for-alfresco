@@ -8,8 +8,11 @@ import datetime as dt
 from os.path import exists as file_exists
 
 from utils import login
+from utils import login_to_zendro
 from helpers import BASE_ENDPOINT
 from helpers.globals import AUDIO_PATTERNS, VIDEO_PATTERNS, IMAGE_PATTERNS
+from helpers import get_zendro_deployments
+from helpers import create_file_query
 
 
 def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
@@ -42,7 +45,11 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
         )
     )
 
+    # take the start time of the script
     starttime = time.time()
+
+    # makes a login to zendro
+    zendro_session = login_to_zendro.login_to_zendro()
 
 
     dirs_with_data = []
@@ -146,9 +153,15 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                         print("Re-logging in to alfresco...")
 
                         session = login.login()
-                        # restart time
-                        starttime = time.time()
+
                         time.sleep(5)
+                        print("Login sucessful, loggin in to zendro now...\n")
+
+                        zendro_session = login_to_zendro.login_to_zendro()
+
+                        # restart time
+                        time.sleep(5)
+                        starttime = time.time()
                         print("Login sucessful, continuing update\n")
 
                     response = session.get(
@@ -166,6 +179,8 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                     data_file = open(latest_json_file)
 
                     data_json = json.load(data_file)
+
+                    file_ids_to_upload = []
 
                     # for each file in request change type/add aspect
                     for f in response.json()["list"]["entries"]:
@@ -285,6 +300,21 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             updated.append(update.json())
 
                             print("Updated " + f["entry"]["name"])
+
+                            prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"]})
+                            file_ids_to_upload.append(prop_dict)
+
+                    zendro_response = get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
+                    
+                    query = create_file_query(file_ids_to_upload,zendro_response)
+
+                    response = zendro_session.post(os.getenv("ZENDRO_URL")
+                            + "/graphql",json={
+                                "query": "mutation {" +
+                                    query + "}"
+                            })
+                    
+                    file_ids_to_upload = []
 
             if not is_error:
                 filename = "logs/type_n_aspects_log" + path_to_files.replace('/','-') + '.txt'
