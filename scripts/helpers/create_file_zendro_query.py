@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 def nearest(items, pivot):
     return min(items, key=lambda x: abs(datetime.strptime(x["date_deployment"], '%Y-%m-%dT%H:%M:%S.%fZ') - pivot))
 
-def create_file_query(files_with_props,zendro_response):
+def create_file_zendro_query(files_with_props,zendro_response):
     """
     Creates a graphql query to upload files info from alfresco to
     zendro.

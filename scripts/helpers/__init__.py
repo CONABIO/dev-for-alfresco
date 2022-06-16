@@ -6,3 +6,4 @@ from .change_type_of_file import change_type_of_file
 from .create_folder_in_site import create_folder_in_site
 from .upload_to_location import upload_to_location
 from .get_zendro_deployments import get_zendro_deployments
+from .create_file_zendro_query import create_file_zendro_query

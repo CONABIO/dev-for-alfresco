@@ -12,7 +12,7 @@ from utils import login_to_zendro
 from helpers import BASE_ENDPOINT
 from helpers.globals import AUDIO_PATTERNS, VIDEO_PATTERNS, IMAGE_PATTERNS
 from helpers import get_zendro_deployments
-from helpers import create_file_query
+from helpers import create_file_zendro_query
 
 
 def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
@@ -306,7 +306,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
 
                     zendro_response = get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
                     
-                    query = create_file_query(file_ids_to_upload,zendro_response)
+                    query = create_file_zendro_query(file_ids_to_upload,zendro_response)
 
                     response = zendro_session.post(os.getenv("ZENDRO_URL")
                             + "/graphql",json={
