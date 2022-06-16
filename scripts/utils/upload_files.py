@@ -82,11 +82,13 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
                 file_with_path.split("/")[len_of_path - 1], ""
             )
 
+            filetype = [filetype for filetype in FILE_PATTERNS if filetype in name_of_file]
+
             data = {
                 "name": (
-                    name_of_file[0 : len(name_of_file) - 4]
+                    name_of_file.replace(filetype[0],'')
                     + file_identifier
-                    + name_of_file[len(name_of_file) - 4 : len(name_of_file)]
+                    + filetype[0]
                 ),
                 "nodeType": "cm:content",
             }
@@ -95,9 +97,9 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
 
             data["properties"] = {
                 "cm:title": (
-                    name_of_file[0 : len(name_of_file) - 4]
+                    name_of_file.replace(filetype[0],'')
                     + file_identifier
-                    + name_of_file[len(name_of_file) - 4 : len(name_of_file)]
+                    + filetype[0]
                 )
             }
 
