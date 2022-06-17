@@ -1,9 +1,20 @@
-
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def nearest(items, pivot):
+    """
+    Finds the nearest date with an element given a list of items with time data.
+
+    Parameters:
+        items (list):   A list of items with time data.
+        pivot (dict):   A dict containing the time to compare.
+
+    Returns:
+        (dict):       The element which turn out to the the nearest to the initial item.
+    """
+
     return min(items, key=lambda x: abs(datetime.strptime(x["date_deployment"], '%Y-%m-%dT%H:%M:%S.%fZ') - pivot))
+
 
 def create_file_zendro_query(files_with_props,zendro_response):
     """
