@@ -235,7 +235,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             for i in data_json["MetadataFiles"].keys():
                                 len_complete_path = len(i.split("/"))
                                 filename = i.split("/")[len_complete_path - 1]
-                                if filename.replace("AVI","mp4").replace("webm","mp4") == f["entry"]["name"]:
+                                if filename.replace("AVI","mp4").replace("AVI","webm") == f["entry"]["name"]:
                                     found = i
                                     break
                                         
