@@ -53,13 +53,13 @@ def create_file_zendro_query(files_with_props,zendro_response):
                     node_deployments = [ *node_deployments, *[d for d in el["deploymentsFilter"] if d["device"]["serial_number"] == device_serial] ]
             
             # find nearest date to date_file
-            alfresco_file = datetime.strptime(date_file, '%Y-%m-%dT%H:%M:%S.%f%z').replace(tzinfo=None)
+            alfresco_file = datetime.strptime(date_file, '%Y-%m-%d').replace(tzinfo=None)
             close_deployment = nearest(node_deployments,alfresco_file)
         else:
             node_deployments =  [d for d in zendro_response.json()["data"]["cumulus"][0]["nodesFilter"] if d["nomenclatura"] == node]
 
             # find nearest date to date_file
-            alfresco_file = datetime.strptime(date_file, '%Y-%m-%dT%H:%M:%S.%f%z').replace(tzinfo=None)
+            alfresco_file = datetime.strptime(date_file, '%Y-%m-%d').replace(tzinfo=None)
             deployments = [d for d in node_deployments[0]["deploymentsFilter"] if d["device"]["device"]["type"] == types_dict[i["mimeType"].split("/")[0]]]
             close_deployment = nearest(deployments,alfresco_file)
         query = query + ("d" + str(idx) + ": addFile("

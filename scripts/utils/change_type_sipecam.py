@@ -4,6 +4,7 @@ import glob
 import time
 import json
 import itertools
+import traceback
 import datetime as dt
 from os.path import exists as file_exists
 
@@ -86,8 +87,6 @@ def search_for_json_file(files_in_dir,directory):
         name_of_file = json_file.split("/")[len_of_path - 1]
 
         # validate if json file matches standard name
-        if re.match('[a-zA-Z_]*[0-9]*-[0-9]*-[0-9]*', name_of_file): 
-                if re.match('[a-zA-Z_]*[0-9]*-[0-9]*-[0-9]*', name_of_file): 
         if re.match('[a-zA-Z_]*[0-9]*-[0-9]*-[0-9]*', name_of_file): 
 
             date_of_file = name_of_file.split("_")[len(name_of_file.split("_")) - 1]
@@ -236,7 +235,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             for i in data_json["MetadataFiles"].keys():
                                 len_complete_path = len(i.split("/"))
                                 filename = i.split("/")[len_complete_path - 1]
-                                if filename.replace("AVI","mp4") == f["entry"]["name"]:
+                                if filename.replace("AVI","mp4").replace("webm","mp4") == f["entry"]["name"]:
                                     found = i
                                     break
                                         
@@ -348,9 +347,9 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"]})
                             file_ids_to_upload.append(prop_dict)
 
-                    zendro_response = get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
+                    zendro_response = get_zendro_deployments.get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
                     
-                    query = create_file_zendro_query(file_ids_to_upload,zendro_response)
+                    query = create_file_zendro_query.create_file_zendro_query(file_ids_to_upload,zendro_response)
 
                     response = zendro_session.post(os.getenv("ZENDRO_URL")
                             + "/graphql",json={
@@ -368,4 +367,5 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
         return updated
 
     except Exception as e:
+        print(traceback.format_exc())
         print("Could not add any aspect to this file: ", e)
