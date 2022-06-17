@@ -175,7 +175,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
             if response.status_code == 200:
 
                 print("\n\nChanging type of files in " + root_dir_path)
-                print("Total files: %d" % response["list"]["pagination"]["totalItems"],"\n\n")
+                print("Total files: %d" % response,json()["list"]["pagination"]["totalItems"],"\n\n")
 
                 has_more_items = True
                 skip_count = 0
