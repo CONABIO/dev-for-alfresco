@@ -352,15 +352,21 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"]})
                             file_ids_to_upload.append(prop_dict)
 
+                    print("\nUploading data to zendro...")
+                    time.sleep(5)
                     zendro_response = get_zendro_deployments.get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
                     
                     query = create_file_zendro_query.create_file_zendro_query(file_ids_to_upload,zendro_response)
 
+                    time.sleep(5)
                     response = zendro_session.post(os.getenv("ZENDRO_URL")
                             + "/graphql",json={
                                 "query": "mutation {" +
                                     query + "}"
                             })
+                    
+                    time.sleep(5)
+                    print("\Done! continuing with alfresco...")
                     
                     file_ids_to_upload = []
 
