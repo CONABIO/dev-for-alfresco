@@ -42,7 +42,7 @@ def check_log_file(files_in_dir,path_to_files):
         # extracting the full path to the file
         root_dir_path = file_with_path.replace(name_of_file, "")
 
-        if root_dir_path not in dirs_with_data and "HLPX" in root_dir_path:
+        if root_dir_path not in dirs_with_data:
             dirs_with_data.append(root_dir_path)
 
     filename = "logs/type_n_aspects_log" + path_to_files.replace('/','-') + '.txt'
@@ -174,7 +174,8 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
             # if request is successful then continue
             if response.status_code == 200:
 
-                print("Changing type of files in " + root_dir_path + "\n\n")
+                print("\n\nChanging type of files in " + root_dir_path)
+                print("Total files: %d" % response["list"]["pagination"]["totalItems"],"\n\n")
 
                 has_more_items = True
                 skip_count = 0
@@ -235,7 +236,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             for i in data_json["MetadataFiles"].keys():
                                 len_complete_path = len(i.split("/"))
                                 filename = i.split("/")[len_complete_path - 1]
-                                if filename.replace("AVI","mp4").replace("AVI","webm") == f["entry"]["name"]:
+                                if filename.replace("AVI","mp4") == f["entry"]["name"]:
                                     found = i
                                     break
                                 
@@ -366,7 +367,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             })
                     
                     time.sleep(5)
-                    print("\Done! continuing with alfresco...")
+                    print("\nDone! continuing with alfresco...\n")
                     
                     file_ids_to_upload = []
 
