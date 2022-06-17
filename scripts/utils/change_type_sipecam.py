@@ -238,6 +238,11 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                 if filename.replace("AVI","mp4").replace("AVI","webm") == f["entry"]["name"]:
                                     found = i
                                     break
+                                
+                                # second check for webm
+                                if filename.replace("AVI","webm") == f["entry"]["name"]:
+                                    found = i
+                                    break
                                         
                             prop_dict = {}
 
