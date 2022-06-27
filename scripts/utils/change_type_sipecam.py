@@ -139,7 +139,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
     starttime = time.time()
 
     # makes a login to zendro
-    # zendro_session = login_to_zendro.login_to_zendro()
+    zendro_session = login_to_zendro.login_to_zendro()
 
     # check log file to filter out files
     dirs_with_data = check_log_file(files_in_dir,path_to_files)
