@@ -193,8 +193,9 @@ if "Authorization" in session.headers.keys():
 
     # remove_aspects(session,"sipecam:fileDetails")
 
-    res = change_type_of_file(session,"sipecam","")
+    res = change_type_of_file(session, "pruebas", "/mnt/j")
 
-    print("updated %d files" % len(res))
+    print(res)
+    # print("updated %d files" % len(res))
 
     # print(ids)

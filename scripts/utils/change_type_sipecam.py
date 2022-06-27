@@ -139,7 +139,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
     starttime = time.time()
 
     # makes a login to zendro
-    zendro_session = login_to_zendro.login_to_zendro()
+    # zendro_session = login_to_zendro.login_to_zendro()
 
     # check log file to filter out files
     dirs_with_data = check_log_file(files_in_dir,path_to_files)
@@ -225,6 +225,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                     data_json = json.load(data_file)
 
                     file_ids_to_upload = []
+                    files_not_found = []
 
                     # for each file in request change type/add aspect
                     for f in response.json()["list"]["entries"]:
@@ -312,6 +313,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
 
                             else:
                                 print("File " + f["entry"]["name"] + " not found in json file")
+                                files_not_found.append(f["entry"]["name"])
 
                             aspects = f["entry"]["aspectNames"]
 
@@ -352,6 +354,18 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
 
                             prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"]})
                             file_ids_to_upload.append(prop_dict)
+                    
+                    if len(files_not_found) > 0:
+                        filename = "logs/files_n_dirs_w_no_metadata" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
+                        with open(filename, 'a') as log_file:
+                            log_file.writelines("%s: [\n" % d)
+                        
+                            for i in files_not_found:
+                                    log_file.writelines("\t%s\n" % i)
+                            
+                            log_file.writelines("]\n")
+                        
+
 
                     print("\nUploading data to zendro...")
                     time.sleep(5)
