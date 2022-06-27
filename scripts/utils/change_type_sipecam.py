@@ -277,6 +277,10 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                                                 file_size = float(file_metadata[key].replace(" MiB",'')) * 1048576
                                             elif "KiB" in file_metadata[key]:
                                                 file_size = float(file_metadata[key].replace(" KiB",'')) * 1024
+                                            elif "GB" in file_metadata[key]:
+                                                file_size = float(file_metadata[key].replace(" MB",'')) * 1000000000
+                                            elif "MB" in file_metadata[key]:
+                                                file_size = float(file_metadata[key].replace(" MB",'')) * 1000000
                                             elif "kB" in file_metadata[key]:
                                                 file_size = float(file_metadata[key].replace(" kB",'')) * 1000
                                             elif "B" in file_metadata[key]:
