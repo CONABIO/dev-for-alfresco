@@ -2,6 +2,7 @@
 __pycache__/
 .env
 logs/
+recent_uploaded/
 upload_log*.txt
 92/
 data.json

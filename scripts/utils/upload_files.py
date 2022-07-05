@@ -2,6 +2,7 @@ import time
 import os
 from os.path import exists as file_exists
 import itertools
+from datetime import datetime
 import glob
 from helpers.globals import FILE_PATTERNS
 from utils.upload import upload
@@ -38,6 +39,9 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
             for pattern in FILE_PATTERNS
         )
     )
+
+    recent_uploaded = "recent_uploaded/uploaded-" + datetime.now().strftime("%Y%m%d%H%M%s") + ".txt"
+    os.makedirs(os.path.dirname(recent_uploaded), exist_ok=True)
 
     filename = "logs/upload_log" + dir_path.replace('/','-') + '.txt'
     os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -109,6 +113,11 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
             upload_response = upload(session, node_id, data, files)
             if upload_response[1] and upload_response[1] == 201:
                 files_uploaded.append(upload_response[0])
+
+                # print log file of files in this upload
+                with open(recent_uploaded, 'a') as log_file:
+                    log_file.writelines("%s\n" % name_of_file)
+                    
                 print("Uploaded " + data["name"])
 
                 filename = "logs/upload_log" + dir_path.replace('/','-') + '.txt'
