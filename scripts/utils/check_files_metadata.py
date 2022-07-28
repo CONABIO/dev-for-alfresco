@@ -101,7 +101,7 @@ def search_for_json_file(files_in_dir,directory):
     return latest_json_file
 
 
-def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
+def check_files_metadata(session, root_folder_id, path_to_files, recursive):
     """
     Change the type of a file in alfresco
 
