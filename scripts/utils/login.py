@@ -2,6 +2,7 @@ import os
 import json
 import base64
 import requests
+import traceback
 from helpers import AUTH_ENDPOINT
 
 def login():
@@ -29,4 +30,5 @@ def login():
 
         return session
     except Exception as e:
+        print(traceback.format_exc())
         print("Login failed: ",e)
