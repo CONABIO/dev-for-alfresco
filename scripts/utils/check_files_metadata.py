@@ -101,22 +101,21 @@ def search_for_json_file(files_in_dir,directory):
     return latest_json_file
 
 
-def check_files_metadata(session, root_folder_id, path_to_files, recursive):
+def check_files_metadata(session, path_to_files, recursive):
     """
-    Change the type of a file in alfresco
+    Check if the metadata extracted for the files in the given location
+    is complete.
 
     Parameters:
         session (Session):          A session object to make
                                     requests to alfresco.
-        root_folder_id (string):    Id of the root folder where files
-                                    are located
         path_to_files (string):     The relative path to the files
                                     location.
         recursive (boolean):        A boolean to know if the search must 
                                     be recursive in the specifed dir.
 
     Returns:
-        (None)
+        (list): a list with the files without metadata
     """
 
     if recursive:
