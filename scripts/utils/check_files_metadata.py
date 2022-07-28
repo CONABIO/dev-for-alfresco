@@ -163,9 +163,7 @@ def check_files_metadata(session, path_to_files, recursive):
                 # find match in json file with file in request
                 found = None
                 for i in data_json["MetadataFiles"].keys():
-                    len_complete_path = len(i.split("/"))
-                    filename = i.split("/")[len_complete_path - 1]
-                    if filename.replace("AVI","mp4") == f["entry"]["name"]:
+                    if i.replace("AVI","mp4") == f:
                         found = i
                         break
 
