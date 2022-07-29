@@ -123,7 +123,7 @@ def check_files_metadata(session, path_to_files, recursive):
     else:
         expression = "/*"
 
-    files_in_dir = list(
+    json_in_dir = list(
         itertools.chain.from_iterable(
             glob.iglob(path_to_files + expression + pattern, recursive=recursive)
             for pattern in [".json"]
@@ -131,14 +131,14 @@ def check_files_metadata(session, path_to_files, recursive):
     )
 
     # check log file to filter out files
-    dirs_with_data = check_log_file(files_in_dir,path_to_files)
+    dirs_with_data = check_log_file(json_in_dir,path_to_files)
 
     try:
         bad_files = []
         for d in dirs_with_data:
 
             # filter jsons for current path
-            latest_json_file = search_for_json_file(files_in_dir,d)
+            latest_json_file = search_for_json_file(json_in_dir,d)
 
             files_in_dir = list(
                 itertools.chain.from_iterable(
