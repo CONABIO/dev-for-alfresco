@@ -140,35 +140,36 @@ def check_files_metadata(session, path_to_files, recursive):
             # filter jsons for current path
             latest_json_file = search_for_json_file(files_in_dir,d)
 
-            # split the path taking / as delimiter
-            len_of_path = len(latest_json_file.split("/"))
-
-            # get dir path, which is the same in alfresco
-            root_dir_path = latest_json_file.replace(
-                latest_json_file.split("/")[len_of_path - 1], ""
-            )
-
             files_in_dir = list(
                 itertools.chain.from_iterable(
-                    glob.iglob(root_dir_path + expression + pattern, recursive=recursive)
+                    glob.iglob(d + expression + pattern, recursive=recursive)
                     for pattern in FILE_PATTERNS
                 )
             )
 
-            for f in files_in_dir:
+            if latest_json_file: 
+                for f in files_in_dir:
 
-                data_file = open(latest_json_file)
-                data_json = json.load(data_file)
+                    data_file = open(latest_json_file)
+                    data_json = json.load(data_file)
 
-                # find match in json file with file in request
-                found = None
-                for i in data_json["MetadataFiles"].keys():
-                    if i.replace("AVI","mp4") == f:
-                        found = i
-                        break
+                    # find match in json file with file in request
+                    found = None
+                    for i in data_json["MetadataFiles"].keys():
+                        if i.replace("AVI","mp4") == f:
+                            found = i
+                            break
 
-                if not found:
-                    bad_files.append(f)
+                    if not found:
+                        bad_files.append(f)
+                        filename = "logs/files_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
+                        with open(filename, 'a') as log_file:
+                            log_file.writelines("%s\n" % f)
+                            
+            else:
+                filename = "logs/dirs_with_no_json_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
+                with open(filename, 'a') as log_file:
+                    log_file.writelines("%s\n" % d)            
                 
                 
 
