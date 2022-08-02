@@ -147,6 +147,7 @@ def check_files_metadata(session, path_to_files, recursive):
                 )
             )
 
+            found_bad_file = False
             if latest_json_file: 
                 for f in files_in_dir:
 
@@ -161,6 +162,7 @@ def check_files_metadata(session, path_to_files, recursive):
                             break
 
                     if not found:
+                        found_bad_file = True
                         bad_files.append(f)
                         filename = "logs/files_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
                         with open(filename, 'a') as log_file:
@@ -169,7 +171,12 @@ def check_files_metadata(session, path_to_files, recursive):
             else:
                 filename = "logs/dirs_with_no_json_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
                 with open(filename, 'a') as log_file:
-                    log_file.writelines("%s\n" % d)            
+                    log_file.writelines("%s\n" % d)   
+
+            if found_bad_file:
+                log_file_dirs = "logs/dirs_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.txt'
+                with open(log_file_dirs, 'a') as log_file_metadata_dirs:
+                    log_file_metadata_dirs.writelines("%s\n" % d) 
                 
                 
 
