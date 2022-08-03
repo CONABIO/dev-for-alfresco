@@ -133,6 +133,13 @@ def check_files_metadata(session, path_to_files, recursive):
     # check log file to filter out files
     dirs_with_data = check_log_file(json_in_dir,path_to_files)
 
+    
+    log_file_dirs = "logs/dirs_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.txt'
+
+    dirs_no_json = "logs/dirs_with_no_json_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
+
+    file_with_missing = "logs/files_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
+
     try:
         bad_files = []
         for d in dirs_with_data:
@@ -164,17 +171,14 @@ def check_files_metadata(session, path_to_files, recursive):
                     if not found:
                         found_bad_file = True
                         bad_files.append(f)
-                        filename = "logs/files_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
-                        with open(filename, 'a') as log_file:
+                        with open(file_with_missing, 'a') as log_file:
                             log_file.writelines("%s\n" % f)
                             
             else:
-                filename = "logs/dirs_with_no_json_" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
-                with open(filename, 'a') as log_file:
+                with open(dirs_no_json, 'a') as log_file:
                     log_file.writelines("%s\n" % d)   
 
             if found_bad_file:
-                log_file_dirs = "logs/dirs_with_missing_metadata_" + dt.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.txt'
                 with open(log_file_dirs, 'a') as log_file_metadata_dirs:
                     log_file_metadata_dirs.writelines("%s\n" % d) 
                 
