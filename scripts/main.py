@@ -206,6 +206,7 @@ if "Authorization" in session.headers.keys():
 
     if args.check_files:
         if args.dir_path:
+            print("Checking file metadata in %s", args.dir_path)
             res = check_files_metadata(session, args.dir_path, True)
             print(res)
         else: 
@@ -213,6 +214,7 @@ if "Authorization" in session.headers.keys():
 
     elif args.change_type:
         if args.dir_path:
+            print("Changing alfresco's file type for files in %s", args.dir_path)
             res = change_type_of_file(session, "sipecam", args.dir_path)
             print("updated %d files" % len(res))
         else: 
@@ -220,12 +222,14 @@ if "Authorization" in session.headers.keys():
 
     elif args.upload_to_alfresco:
         if args.dir_path:
+            print("Uploading files in %s to alfresco", args.dir_path)
             upload_to_location(session, "sipecam", args.dir_path,True,)
         else: 
             print("No dir path was provided")
 
     elif args.upload_to_s3:
         if args.recent_upload:
+            print("Uploading files in %s to s3", args.recent_upload)
             res = upload_to_s3(args.recent_upload)
             print(res)
         else: 
