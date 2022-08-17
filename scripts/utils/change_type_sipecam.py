@@ -358,7 +358,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
 
                             print("Updated " + f["entry"]["name"])
 
-                            prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"]})
+                            prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"], "fullPath": found})
                             file_ids_to_upload.append(prop_dict)
                     
                     if len(files_not_found) > 0:

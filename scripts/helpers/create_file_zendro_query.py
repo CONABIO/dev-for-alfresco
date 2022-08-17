@@ -64,6 +64,7 @@ def create_file_zendro_query(files_with_props,zendro_response):
             close_deployment = nearest(deployments,alfresco_file)
         query = query + ("d" + str(idx) + ": addFile("
              + "id_alfresco: \"" + i["id"] + "\","
+             + "url: \"" + i["fullPath"].replace("/LUSTRE/sacmod/SIPECAM/","s3://sipecam-open-data/") + "\"," 
              + "type: \"" + i["mimeType"] + "\","
              + "storage: \"s3\","
              + "addAssociated_deployment: " + close_deployment["id"] + ")"
