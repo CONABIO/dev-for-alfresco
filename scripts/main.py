@@ -1,13 +1,25 @@
 from dotenv import load_dotenv
 import os
 import json
-from utils import create_sites, search, login, remove_aspects
+import argparse
+from utils import search, login, check_files_metadata, upload_to_s3
 from helpers import *
 
 # load dotenv vars located in .env file
 load_dotenv()
 
 session = login()
+
+parser = argparse.ArgumentParser(description="Group of scripts to make easier the interaction with alfresco.")
+
+parser.add_argument('-c','--check-files',help="runs a script to verify metadata extracted with simex", action="store_true")
+parser.add_argument('-t','--change-type',help="runs a script to change the default type for specific files in alfresco", action="store_true")
+parser.add_argument('-a','--upload-to-alfresco',help="runs a script to upload files in a dir to alfresco", action="store_true")
+parser.add_argument('-s','--upload-to-s3',help="runs a script to upload files to s3", action="store_true")
+parser.add_argument('-d','--dir-path',help="path to root dir where files are located")
+parser.add_argument('-n','--recent_upload',help="path to specific file, which holds files with full path to upload to s3")
+
+args = parser.parse_args()
 
 """
 
@@ -191,11 +203,31 @@ if "Authorization" in session.headers.keys():
     #     output_file.write(zip_file.content)
     # print('Downloading Completed')
 
-    # remove_aspects(session,"sipecam:fileDetails")
 
-    res = change_type_of_file(session, "pruebas", "/mnt/j")
+    if args.check_files:
+        if args.dir_path:
+            res = check_files_metadata(session, args.dir_path, True)
+            print(res)
+        else: 
+            print("No dir path was provided")
 
-    print(res)
-    # print("updated %d files" % len(res))
+    elif args.change_type:
+        if args.dir_path:
+            res = change_type_of_file(session, "sipecam", args.dir_path)
+            print("updated %d files" % len(res))
+        else: 
+            print("No dir path was provided")
 
-    # print(ids)
+    elif args.upload_to_alfresco:
+        if args.dir_path:
+            upload_to_location(session, "sipecam", args.dir_path,True,)
+        else: 
+            print("No dir path was provided")
+
+    elif args.upload_to_s3:
+        if args.recent_upload:
+            res = upload_to_s3(args.recent_upload)
+            print(res)
+        else: 
+            print("No path to file of recent uploaded files was provided")
+

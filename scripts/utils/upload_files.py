@@ -40,7 +40,7 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
         )
     )
 
-    recent_uploaded = "recent_uploaded/uploaded-" + datetime.now().strftime("%Y%m%d%H%M%s") + ".txt"
+    recent_uploaded = "recent_uploaded/uploaded-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%s") + ".txt"
     os.makedirs(os.path.dirname(recent_uploaded), exist_ok=True)
 
     filename = "logs/upload_log" + dir_path.replace('/','-') + '.txt'
@@ -116,7 +116,7 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
 
                 # print log file of files in this upload
                 with open(recent_uploaded, 'a') as log_file:
-                    log_file.writelines("%s\n" % name_of_file)
+                    log_file.writelines("%s\n" % file_with_path)
                     
                 print("Uploaded " + data["name"])
 

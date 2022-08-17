@@ -12,3 +12,4 @@ from .change_type_sipecam import change_type_sipecam
 from .search import search
 from .remove_aspects import remove_aspects
 from .check_files_metadata import check_files_metadata
+from .upload_tos3 import upload_to_s3
