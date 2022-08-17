@@ -51,4 +51,4 @@ def upload_to_s3(recent_uploaded):
         print("Could not upload this files: \n")
         print(files_with_error)
     
-    return "%d files uploaded to s3"
+    return "%d files uploaded to s3" % files_uploaded
