@@ -47,6 +47,7 @@ def upload_to_s3(recent_uploaded):
             print("Uploaded file %s" % file)
             print("File %d of %d" % ( files_uploaded, len(files_to_upload) ) )
         else:
+            print("\033[93m ERROR:\033[0m Cannot upload file %s" % file)
             files_with_error.append(file)
     
     if len(files_with_error) > 0:
