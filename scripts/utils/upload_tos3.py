@@ -44,6 +44,8 @@ def upload_to_s3(recent_uploaded):
 
         if uploaded:
             files_uploaded += 1
+            print("Uploaded file %s" % file)
+            print("File %d of %d" % ( files_uploaded, len(files_to_upload) ) )
         else:
             files_with_error.append(file)
     
