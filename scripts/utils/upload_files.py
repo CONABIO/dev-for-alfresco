@@ -27,6 +27,8 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
     Returns:
         (string):           Returns the info of recent created site.
     """
+    
+    starttime = time.time()
 
     if recursive:
         expression = "/**/*"
@@ -54,8 +56,6 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
         files_in_dir = tmp_list
 
     total_files = len(files_in_dir)
-
-    starttime = time.time()
 
     try:
         files_uploaded = []
