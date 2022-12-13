@@ -130,6 +130,7 @@ def upload_files(session, node_id, dir_path, recursive, file_identifier=""):
 
             else:
                 print("An error ocurred, file " + data["name"] + " cannot be uploaded")
+                print(upload_response)
 
             print("Uploaded file " + str(idx + 1) + " of " + str(total_files))
             print("\n\n")
