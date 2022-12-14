@@ -376,7 +376,7 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             log_file.writelines("]\n")
                         
 
-                    if len(file_ids_to_upload) == 100:
+                    if len(file_ids_to_upload) >= 100:
                         print("\nUploading data to zendro...")
                         time.sleep(5)
                         zendro_response = get_zendro_deployments.get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
