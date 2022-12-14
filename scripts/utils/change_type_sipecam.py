@@ -361,8 +361,9 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
 
                             print("Updated " + f["entry"]["name"])
 
-                            prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"], "fullPath": found})
-                            file_ids_to_upload.append(prop_dict)
+                            if found:
+                                prop_dict.update({"id": f["entry"]["id"], "mimeType": f["entry"]["content"]["mimeType"], "fullPath": found})
+                                file_ids_to_upload.append(prop_dict)
                     
                     if len(files_not_found) > 0:
                         filename = "logs/files_n_dirs_w_no_metadata" + dt.datetime.now().strftime("%Y-%m-%d") + '.txt'
