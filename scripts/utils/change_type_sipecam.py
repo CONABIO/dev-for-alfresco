@@ -376,24 +376,24 @@ def change_type_sipecam(session, root_folder_id, path_to_files, recursive):
                             log_file.writelines("]\n")
                         
 
+                    if len(file_ids_to_upload) == 100:
+                        print("\nUploading data to zendro...")
+                        time.sleep(5)
+                        zendro_response = get_zendro_deployments.get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
+                        
+                        query = create_file_zendro_query.create_file_zendro_query(file_ids_to_upload,zendro_response)
 
-                    print("\nUploading data to zendro...")
-                    time.sleep(5)
-                    zendro_response = get_zendro_deployments.get_zendro_deployments(zendro_session,data_json["MetadataDevice"]["CumulusName"])
-                    
-                    query = create_file_zendro_query.create_file_zendro_query(file_ids_to_upload,zendro_response)
-
-                    time.sleep(5)
-                    response = zendro_session.post(os.getenv("ZENDRO_URL")
-                            + "/graphql",json={
-                                "query": "mutation {" +
-                                    query + "}"
-                            })
-                    
-                    time.sleep(5)
-                    print("\nDone! continuing with alfresco...\n")
-                    
-                    file_ids_to_upload = []
+                        time.sleep(5)
+                        response = zendro_session.post(os.getenv("ZENDRO_URL")
+                                + "/graphql",json={
+                                    "query": "mutation {" +
+                                        query + "}"
+                                })
+                        
+                        time.sleep(5)
+                        print("\nDone! continuing with alfresco...\n")
+                        
+                        file_ids_to_upload = []
 
             if not is_error:
                 filename = "logs/type_n_aspects_log" + path_to_files.replace('/','-') + '.txt'
